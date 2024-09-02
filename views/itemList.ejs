@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="/stylesheets/styles.css">
+        <title>Items</title>
+    </head>
+    <body>
+        <div class="container">
+            <div class="nav-container">
+                <%- include('navbar', { links: links }) %>
+            </div>
+            <div class="content-container">
+                <h2>All items</h2>
+                <% if (locals.items) { %>
+                    <ul>
+                        <% items.forEach(item => { %>
+                            <li><a href="/items/<%= item.item_id %>"><%= item.item_name %></a></li>
+                        <% }); %>
+                    </ul>
+                <% } else { %> 
+                    <div>No items to show</div>
+                <% } %>
+                <div><a href="/items/new">Create New Item</a></div>
+            </div>
+        </div>
+    </body>
+</html>

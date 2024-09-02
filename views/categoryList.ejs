@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="/stylesheets/styles.css">
+        <title>Categories</title>
+    </head>
+    <body>
+        <div class="container">
+            <div class="nav-container">
+                <%- include('navbar', { links: links }) %>
+            </div>
+            <div class="content-container">
+                <h2>All categories</h2>
+                <ul>
+                    <% if (locals.categories) { %>
+                        <% categories.forEach(category => { %>
+                            <li><a href="/categories/<%= category.id %>"><%= category.category_name %></a></li>
+                        <% }); %>
+                    <% } %>
+                </ul>
+                <div><a href="/categories/new">Create New Category</a></div>
+            </div>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="/stylesheets/styles.css">
+        <title>Brands</title>
+    </head>
+    <body>
+        <div class="container">
+            <div class="nav-container">
+                <%- include('navbar', { links: links }) %>
+            </div>
+            <div class="content-container">
+                <h2>All brands</h2>
+                <ul>
+                    <% if (locals.brands) { %>
+                        <% brands.forEach(brand => { %>
+                            <li><a href="/brands/<%= brand.id %>"><%= brand.brand_name %></a></li>
+                        <% }); %>
+                    <% } %>
+                </ul>
+                <div><a href="/brands/new">Create New Brand</a></div>
+            </div>
+        </div>
+    </body>
+</html>

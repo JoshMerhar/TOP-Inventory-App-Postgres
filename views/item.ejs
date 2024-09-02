@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title><%= item[0].item_name %></title>
+        <link rel="stylesheet" href="/stylesheets/styles.css">
+    </head>
+    <body>
+        <div class="container">
+            <div class="nav-container">
+                <%- include('navbar', { links: links }) %>
+            </div>
+            <div class="content-container">
+                <h2><%= item[0].item_name %></h2>
+                <img src="<%= item[0].img_url %>">
+                <ul>
+                    <li><b>Brand</b>: <%= item[0].brand_name %></li>
+                    <li><b>Description</b>: <%= item[0].item_description %></li>
+                    <li><b>Category</b>: <%= item[0].category_name %></li>
+                    <li><b>Price</b>: $<%= item[0].price %></li>
+                </ul>
+                <div><a href="/items">Back to Item List</a></div>
+            </div>
+        </div>
+    </body>
+</html>

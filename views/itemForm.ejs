@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="/stylesheets/styles.css">
+        <title>New Item</title>
+    </head>
+    <body>
+        <div class="container">
+            <div class="nav-container">
+                <%- include('navbar', { links: links }) %>
+            </div>
+            <div class="content-container">
+                <h2>Create a new item</h2>
+                <%- include("partials/errors.ejs") %>
+                <form action="/items/new" method="POST">
+                    <div class="form-item">
+                        <label for="itemName">Item Name: </label>
+                        <input type="text" name="itemName" id="itemName" placeholder="Enter item name" maxlength="50" required>
+                    </div>
+                    <div class="form-item">
+                        <label for="itemBrand">Item Brand: </label>
+                        <select name="itemBrand" id="itemBrand" required>
+                            <option value="" selected="true" disabled="disabled">--SELECT BRAND--</option>
+                            <% brands.forEach(brand => { %>
+                                <option value="<%= brand.id %>"><%= brand.brand_name %></option>
+                            <% }); %>
+                        </select>
+                    </div>
+                    <div class="form-item">
+                        <label for="itemDescription">Item Description: </label>
+                        <input type="text" name="itemDescription" id="itemDescription" placeholder="Describe the item" maxlength="200" required>
+                    </div>
+                    <div class="form-item">
+                    <label for="itemCategory">Category Name: </label>
+                        <select name="itemCategory" id="itemCategory" required>
+                            <option value="" selected="true" disabled="disabled">--SELECT CATEGORY--</option>
+                            <% categories.forEach(category => { %>
+                                <option value="<%= category.id %>"><%= category.category_name %></option>
+                            <% }); %>
+                        </select>
+                    </div>
+                    <div class="form-item">
+                        <label for="itemPrice">Price: </label>
+                        <input type="number" name="itemPrice" id="itemPrice" min="0" step=".01" required>
+                    </div>
+                    <div class="form-item">
+                        <label for="itemStockAmt">Number in Stock: </label>
+                        <input type="number" name="itemStockAmt" id="itemStockAmt" min="0" required>
+                    </div>
+                    <div class="form-item">
+                        <label for="itemImageURL">Image URL: </label>
+                        <input type="text" name="itemImageURL" id="itemImageURL" placeholder="Image URL"> 
+                    </div>
+                    <button type="submit" class="submit-button">Submit</button>
+                </form>
+            </div>
+        </div>
+    </body>
+</html>

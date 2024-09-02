@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="/stylesheets/styles.css">
+        <title><%= brand[0].brand_name %></title>
+    </head>
+    <body>
+        <div class="container">
+            <div class="nav-container">
+                <%- include('navbar', { links: links }) %>
+            </div>
+            <div class="content-container">
+                <h2><%= brand[0].brand_name %></h2>
+                <% if (brand[0].item_id !== null) { %>
+                    <ul>
+                        <% brand.forEach(item => { %>
+                            <li><a href="/items/<%= item.item_id %>"><%= item.item_name %></a></li>
+                        <% }); %>
+                    </ul>
+                <% } else { %>
+                    <div>No items to show</div>
+                <% } %>
+                <br>
+                <div><a href="/brands">Back to Brand List</a></div>
+            </div>
+        </div>
+    </body>
+</html>

@@ -1,15 +1,22 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Inventory Home</title>
         <link rel="stylesheet" href="/stylesheets/styles.css">
+        <title>Inventory Home</title>
     </head>
     <body>
-        <h2>Inventory Overview</h2>
-        <ul>
-            <li>Brand Count: <%= brandCount %></li>
-            <li>Category Count: <%= categoryCount %></li>
-            <li>Item Count: <%= itemCount %></li>
-        </ul>
+        <div class="container">
+            <div class="nav-container">
+                <%- include('navbar', { links: links }) %>
+            </div>
+            <div class="content-container">
+                <h2>Inventory Overview</h2>
+                <ul>
+                    <li>Brand Count: <%= brandCount %></li>
+                    <li>Category Count: <%= categoryCount %></li>
+                    <li>Item Count: <%= itemCount %></li>
+                </ul>
+            </div>
+        </div>
     </body>
 </html>

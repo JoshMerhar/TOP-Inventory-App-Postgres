@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="/stylesheets/styles.css">
+        <title><%= category[0].category_name %></title>
+    </head>
+    <body>
+        <div class="container">
+            <div class="nav-container">
+                <%- include('navbar', { links: links }) %>
+            </div>
+            <div class="content-container">
+                <h2><%= category[0].category_name %></h2>
+                <p><%= category[0].category_description %></p>
+                <% if (category[0].item_id !== null) { %>
+                    <ul>
+                        <% category.forEach(item => { %>
+                            <li><a href="/items/<%= item.item_id %>"><%= item.item_name %></a></li>
+                        <% }); %>
+                    </ul>
+                <% } else { %>
+                    <div>No items to show</div>
+                <% } %>
+                <br>
+                <div><a href="/categories">Back to Category List</a></div>
+            </div>
+        </div>
+    </body>
+</html>

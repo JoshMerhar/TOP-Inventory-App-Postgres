@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="/stylesheets/styles.css">
+        <title>New Category</title>
+    </head>
+    <body>
+        <div class="container">
+            <div class="nav-container">
+                <%- include('navbar', { links: links }) %>
+            </div>
+            <div class="content-container">
+                <h2>Create a new category</h2>
+                <%- include("partials/errors.ejs") %>
+                <form action="/categories/new" method="POST">
+                    <div class="form-item">
+                        <label for="categoryName">Category Name: </label>
+                        <input type="text" name="categoryName" id="categoryName" placeholder="Enter category name" maxlength="50" required>
+                    </div>
+                    <div class="form-item">
+                        <label for="categoryDescription">Category Description: </label>
+                        <input type="text" name="categoryDescription" id="categoryDescription" placeholder="Describe the category" maxlength="200" required>
+                    </div>
+                    <button type="submit" class="submit-button">Submit</button>
+                </form>
+            </div>
+        </div>
+    </body>
+</html>
