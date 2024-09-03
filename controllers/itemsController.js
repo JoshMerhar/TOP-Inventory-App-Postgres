@@ -60,12 +60,33 @@ async function getItem(req, res) {
 }
 
 async function itemUpdateGet(req, res) {
-    res.send('item update form');
+    const brands = await db.showBrands();
+    const categories = await db.showCategories();
+    const item = await db.getSingleItem(req.params.id);
+    res.render('updateItem', { links: helpers.links, brands: brands, categories: categories, item: item });
 }
 
-async function itemUpdatePost(req, res) {
-    res.send('post form data');
-}
+const itemUpdatePost = [
+    validateItem,
+    async (req, res) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            const brands = await db.showBrands();
+            const categories = await db.showCategories();
+            const item = db.getSingleItem(req.params.id);
+            return res.status(400).render('updateItem', { 
+                links: helpers.links, 
+                brands: brands, 
+                categories: categories,
+                item: item,
+                errors: errors.array()
+            });
+        }
+        const { itemName, itemBrand, itemDescription, itemCategory, itemPrice, itemStockAmt, itemImageURL } = req.body;
+        db.updateItem(itemName, itemBrand, itemDescription, itemCategory, itemPrice, itemStockAmt, itemImageURL, req.params.id);
+        res.redirect(`/items/${req.params.id}`);
+    }
+];
 
 async function itemDelete(req, res) {
     res.send('delete item');

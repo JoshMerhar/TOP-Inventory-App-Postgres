@@ -13,12 +13,14 @@
                 <h2><%= item[0].item_name %></h2>
                 <img src="<%= item[0].img_url %>">
                 <ul>
-                    <li><b>Brand</b>: <%= item[0].brand_name %></li>
+                    <li><b>Brand</b>: <a href="/brands/<%= item[0].brand_id %>"><%= item[0].brand_name %></a></li>
                     <li><b>Description</b>: <%= item[0].item_description %></li>
-                    <li><b>Category</b>: <%= item[0].category_name %></li>
+                    <li><b>Category</b>: <a href="/categories/<%= item[0].category_id %>"><%= item[0].category_name %></a></li>
                     <li><b>Price</b>: $<%= item[0].price %></li>
                 </ul>
-                <div><a href="/items">Back to Item List</a></div>
+                <div><a href="/items/<%= item[0].item_id %>/update">Update Item</a></div>
+                <div><a href="">Delete Item</a></div>
+                <div><a href="/items">Item List</a></div>
             </div>
         </div>
     </body>

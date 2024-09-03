@@ -33,6 +33,15 @@ async function addBrand(brandName) {
     await pool.query("INSERT INTO brands (brand_name) VALUES ($1)", [brandName]);
 }
 
+async function getBrandInfo(id) {
+    const { rows } = await pool.query("SELECT DISTINCT * FROM brands WHERE id = $1", [id]);
+    return rows;
+}
+
+async function updateBrand(brandName, id) {
+    await pool.query("UPDATE brands SET brand_name = $1 WHERE id = $2", [brandName, id]);
+}
+
 // Category queries
 async function showCategories() {
     const { rows } = await pool.query("SELECT * FROM categories");
@@ -49,6 +58,15 @@ async function getSingleCategory(id) {
 async function addCategory(newCategory) {
     const { category_name, category_description } = newCategory;
     await pool.query("INSERT INTO categories (category_name, category_description) VALUES ($1, $2)", [category_name, category_description]);
+}
+
+async function getCategoryInfo(id) {
+    const { rows } = await pool.query("SELECT * FROM categories WHERE id = $1", [id]);
+    return rows;
+}
+
+async function updateCategory(categoryName, categoryDescription, id) {
+    await pool.query("UPDATE categories SET category_name = $1, category_description = $2 WHERE id = $3", [categoryName, categoryDescription, id]);
 }
 
 // Item queries
@@ -72,6 +90,12 @@ async function addItem(newItem) {
         VALUES ($1, $2, $3, $4, $5, $6, $7)`, [item_name, brand_id, item_description, category_id, price, num_in_stock, img_url]);
 }
 
+async function updateItem(itemName, itemBrand, itemDescription, itemCategory, itemPrice, itemStockAmt, itemImageURL, id) {
+    await pool.query(`UPDATE items SET item_name = $1, brand_id = $2, item_description = $3,
+        category_id = $4, price = $5, num_in_stock = $6, img_url = $7 WHERE item_id = $8`, 
+        [itemName, itemBrand, itemDescription, itemCategory, itemPrice, itemStockAmt, itemImageURL, id])
+}
+
 module.exports = {
     countBrands,
     countCategories,
@@ -79,10 +103,15 @@ module.exports = {
     showBrands,
     getSingleBrand,
     addBrand,
+    getBrandInfo,
+    updateBrand,
     showCategories,
     getSingleCategory,
     addCategory,
+    getCategoryInfo,
+    updateCategory,
     showItems,
     getSingleItem,
     addItem,
+    updateItem,
 }

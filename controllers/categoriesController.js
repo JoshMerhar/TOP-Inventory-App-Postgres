@@ -35,7 +35,7 @@ const newCategoryPost = [
         }
         db.addCategory(newCategory);
         res.redirect("/categories");
-      }
+    }
 ];
 
 async function getCategory(req, res) {
@@ -44,12 +44,27 @@ async function getCategory(req, res) {
 }
 
 async function categoryUpdateGet(req, res) {
-    res.send('category update form');
+    const category = await db.getCategoryInfo(req.params.id);
+    res.render('categoryUpdate', { links: helpers.links, category: category });
 }
 
-async function categoryUpdatePost(req, res) {
-    res.send('post form data');
-}
+const categoryUpdatePost = [
+    validateCategory,
+    async (req, res) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+          const category = await db.getCategoryInfo(req.params.id);
+          return res.status(400).render('categoryUpdate', {
+            links: helpers.links,
+            category: category,
+            errors: errors.array(),
+          });
+        }
+        const { categoryName, categoryDescription } = req.body;
+        db.updateCategory(categoryName, categoryDescription, req.params.id);
+        res.redirect(`/categories/${req.params.id}`);
+    }
+];
 
 async function categoryDelete(req, res) {
     res.send('delete category');

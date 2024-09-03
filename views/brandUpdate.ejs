@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="/stylesheets/styles.css">
+        <title>Update Brand</title>
+    </head>
+    <body>
+        <div class="container">
+            <div class="nav-container">
+                <%- include('navbar', { links: links }) %>
+            </div>
+            <div class="content-container">
+                <h2>Update Brand</h2>
+                <%- include("partials/errors.ejs") %>
+                <form action="/brands/<%= brand[0].id %>/update" method="POST">
+                    <div class="form-item">
+                        <label for="brandName">Brand Name: </label>
+                        <input type="text" name="brandName" id="brandName" value="<%= brand[0].brand_name %>" maxlength="50" required>
+                    </div>
+                    <button type="submit" class="submit-button">Submit</button>
+                    <div class="cancel-update"><a href="/brands/<%= brand[0].id %>">Cancel</a></div>
+                </form>
+            </div>
+        </div>
+    </body>
+</html>

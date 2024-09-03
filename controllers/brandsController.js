@@ -29,7 +29,7 @@ const newBrandPost = [
         const { brandName } = req.body;
         db.addBrand(brandName);
         res.redirect("/brands");
-      }
+    }
 ];
  
 async function getBrand(req, res) {
@@ -38,12 +38,27 @@ async function getBrand(req, res) {
 }
 
 async function brandUpdateGet(req, res) {
-    res.send('brand update form');
+    const brand = await db.getBrandInfo(req.params.id);
+    res.render('brandUpdate', { links: helpers.links, brand: brand });
 }
 
-async function brandUpdatePost(req, res) {
-    res.send('post form data');
-}
+const brandUpdatePost = [
+    validateBrand,
+    async (req, res) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            const brand = await db.getBrandName(req.params.id);
+            return res.status(400).render('brandUpdate', {
+                links: helpers.links,
+                brand: brand,
+                errors: errors.array(),
+            });
+        }
+        const { brandName } = req.body;
+        db.updateBrand(brandName, req.params.id);
+        res.redirect(`/brands/${req.params.id}`);
+    }
+];
 
 async function brandDelete(req, res) {
     res.send('delete brand');

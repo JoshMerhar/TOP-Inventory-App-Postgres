@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="/stylesheets/styles.css">
+        <title>Update Category</title>
+    </head>
+    <body>
+        <div class="container">
+            <div class="nav-container">
+                <%- include('navbar', { links: links }) %>
+            </div>
+            <div class="content-container">
+                <h2>Update Category</h2>
+                <%- include("partials/errors.ejs") %>
+                <form action="/categories/<%= category[0].id %>/update" method="POST">
+                    <div class="form-item">
+                        <label for="categoryName">Category Name: </label>
+                        <input type="text" name="categoryName" id="categoryName" value="<%= category[0].category_name %>" maxlength="50" required>
+                    </div>
+                    <div class="form-item">
+                        <label for="categoryDescription">Category Description: </label>
+                        <input type="text" name="categoryDescription" id="categoryDescription" value="<%= category[0].category_description %>" maxlength="200" required>
+                    </div>
+                    <button type="submit" class="submit-button">Submit</button>
+                    <div class="cancel-update"><a href="/categories/<%= category[0].id %>">Cancel</a></div>
+                </form>
+            </div>
+        </div>
+    </body>
+</html>
