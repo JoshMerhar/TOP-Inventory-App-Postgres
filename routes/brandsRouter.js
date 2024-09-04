@@ -14,7 +14,8 @@ brandsRouter.get('/:id/update', brandsController.brandUpdateGet);
 
 brandsRouter.post('/:id/update', brandsController.brandUpdatePost);
 
-// Not totally sure how this will work out yet. Come back to this
-brandsRouter.post('/:id/delete', brandsController.brandDelete);
+brandsRouter.get('/:id/delete', brandsController.brandDeleteGet);
+
+brandsRouter.post('/:id/delete', brandsController.brandDeletePost);
 
 module.exports = brandsRouter;

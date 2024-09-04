@@ -40,7 +40,7 @@ const newCategoryPost = [
 
 async function getCategory(req, res) {
     const category = await db.getSingleCategory(req.params.id);
-    res.render('category', { links: helpers.links, category: category });
+    res.render('category', { links: helpers.links, category: category, error: null });
 }
 
 async function categoryUpdateGet(req, res) {
@@ -66,8 +66,20 @@ const categoryUpdatePost = [
     }
 ];
 
-async function categoryDelete(req, res) {
-    res.send('delete category');
+async function categoryDeleteGet(req, res) {
+    const category = await db.getCategoryInfo(req.params.id);
+    res.render('categoryDelete', { links: helpers.links, category: category });
+}
+
+async function categoryDeletePost(req, res) {
+    const category = await db.getSingleCategory(req.params.id);
+    if (category[0].item_id === null) {
+        await db.deleteCategory(req.params.id);
+        res.redirect('/categories');
+    } else {
+        const error = "Category must be empty - NOT DELETED";
+        res.render('category', { links: helpers.links, category: category, error: error });
+    }
 }
 
 module.exports = {
@@ -77,5 +89,6 @@ module.exports = {
     getCategory,
     categoryUpdateGet,
     categoryUpdatePost,
-    categoryDelete
+    categoryDeleteGet,
+    categoryDeletePost
 }

@@ -74,7 +74,7 @@ const itemUpdatePost = [
             const brands = await db.showBrands();
             const categories = await db.showCategories();
             const item = db.getSingleItem(req.params.id);
-            return res.status(400).render('updateItem', { 
+            return res.status(400).render('itemUpdate', { 
                 links: helpers.links, 
                 brands: brands, 
                 categories: categories,
@@ -88,8 +88,14 @@ const itemUpdatePost = [
     }
 ];
 
-async function itemDelete(req, res) {
-    res.send('delete item');
+async function itemDeleteGet(req, res) {
+    const item = await db.getSingleItem(req.params.id);
+    res.render('itemDelete', { links: helpers.links, item: item });
+}
+
+async function itemDeletePost(req, res) {
+    await db.deleteItem(req.params.id);
+    res.redirect('/items');
 }
 
 module.exports = {
@@ -99,5 +105,6 @@ module.exports = {
     getItem,
     itemUpdateGet,
     itemUpdatePost,
-    itemDelete
+    itemDeleteGet,
+    itemDeletePost
 }

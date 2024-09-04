@@ -12,7 +12,7 @@
             <div class="content-container">
                 <h2>Update Category</h2>
                 <%- include("partials/errors.ejs") %>
-                <form action="/categories/<%= category[0].id %>/update" method="POST">
+                <form class="input-form" action="/categories/<%= category[0].id %>/update" method="POST">
                     <div class="form-item">
                         <label for="categoryName">Category Name: </label>
                         <input type="text" name="categoryName" id="categoryName" value="<%= category[0].category_name %>" maxlength="50" required>

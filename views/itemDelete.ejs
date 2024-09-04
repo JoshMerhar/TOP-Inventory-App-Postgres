@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="/stylesheets/styles.css">
+        <title>Delete Item</title>
+    </head>
+    <body>
+        <div class="container">
+            <div class="nav-container">
+                <%- include('navbar', { links: links }) %>
+            </div>
+            <div class="content-container">
+                <h2>Are you sure you want to delete <%= item[0].item_name %>?</h2>
+                <form action="/items/<%= item[0].item_id %>/delete" method="POST">
+                    <button type="submit">Delete Item</button>
+                </form>
+            </div>
+        </div>
+    </body>
+</html>

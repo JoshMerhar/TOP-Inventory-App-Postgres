@@ -34,7 +34,7 @@ body {
     padding: 1rem;
 }
 
-form {
+.input-form {
     display: flex;
     flex-direction: column;
     width: 30%;
@@ -53,4 +53,8 @@ form {
 
 .cancel-update {
     margin: auto;
+}
+
+.errors-list {
+    color: red;
 }

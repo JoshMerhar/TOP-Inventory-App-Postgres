@@ -42,6 +42,14 @@ async function updateBrand(brandName, id) {
     await pool.query("UPDATE brands SET brand_name = $1 WHERE id = $2", [brandName, id]);
 }
 
+async function deleteBrand(id) {
+    const brandItems = await getSingleBrand(id);
+    if (brandItems[0].item_id !== null) {
+        return console.log("Brand must not contain any items before deleting.");
+    }
+    await pool.query("DELETE FROM brands WHERE id = $1", [id]);
+}
+
 // Category queries
 async function showCategories() {
     const { rows } = await pool.query("SELECT * FROM categories");
@@ -67,6 +75,14 @@ async function getCategoryInfo(id) {
 
 async function updateCategory(categoryName, categoryDescription, id) {
     await pool.query("UPDATE categories SET category_name = $1, category_description = $2 WHERE id = $3", [categoryName, categoryDescription, id]);
+}
+
+async function deleteCategory(id) {
+    const categoryItems = await getSingleCategory(id);
+    if (categoryItems[0].item_id !== null) {
+        return console.log("Category must not contain any items before deleting.");
+    }
+    await pool.query("DELETE FROM categories WHERE id = $1", [id]);
 }
 
 // Item queries
@@ -96,6 +112,10 @@ async function updateItem(itemName, itemBrand, itemDescription, itemCategory, it
         [itemName, itemBrand, itemDescription, itemCategory, itemPrice, itemStockAmt, itemImageURL, id])
 }
 
+async function deleteItem(id) {
+    await pool.query("DELETE FROM items WHERE item_id = $1", [id]);
+}
+
 module.exports = {
     countBrands,
     countCategories,
@@ -105,13 +125,16 @@ module.exports = {
     addBrand,
     getBrandInfo,
     updateBrand,
+    deleteBrand,
     showCategories,
     getSingleCategory,
     addCategory,
     getCategoryInfo,
     updateCategory,
+    deleteCategory,
     showItems,
     getSingleItem,
     addItem,
     updateItem,
+    deleteItem
 }

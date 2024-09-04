@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="/stylesheets/styles.css">
+        <title>Delete Brand</title>
+    </head>
+    <body>
+        <div class="container">
+            <div class="nav-container">
+                <%- include('navbar', { links: links }) %>
+            </div>
+            <div class="content-container">
+                <h2>Are you sure you want to delete <%= brand[0].brand_name %>?</h2>
+                <form action="/brands/<%= brand[0].id %>/delete" method="POST">
+                    <button type="submit">Delete Brand</button>
+                </form>
+            </div>
+        </div>
+    </body>
+</html>

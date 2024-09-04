@@ -34,7 +34,7 @@ const newBrandPost = [
  
 async function getBrand(req, res) {
     const brand = await db.getSingleBrand(req.params.id);
-    res.render('brand', { links: helpers.links, brand: brand });
+    res.render('brand', { links: helpers.links, brand: brand, error: null });
 }
 
 async function brandUpdateGet(req, res) {
@@ -60,8 +60,20 @@ const brandUpdatePost = [
     }
 ];
 
-async function brandDelete(req, res) {
-    res.send('delete brand');
+async function brandDeleteGet(req, res) {
+    const brand = await db.getBrandInfo(req.params.id);
+    res.render('brandDelete', { links: helpers.links, brand: brand });
+}
+
+async function brandDeletePost(req, res) {
+    const brand = await db.getSingleBrand(req.params.id);
+    if (brand[0].item_id === null) {
+        await db.deleteBrand(req.params.id);
+        res.redirect('/brands');
+    } else {
+        const error = "Brand must be empty - NOT DELETED";
+        res.render('brand', { links: helpers.links, brand: brand, error: error });
+    }
 }
 
 module.exports = {
@@ -71,5 +83,6 @@ module.exports = {
     getBrand,
     brandUpdateGet,
     brandUpdatePost,
-    brandDelete
+    brandDeleteGet,
+    brandDeletePost
 }

@@ -12,7 +12,7 @@
             <div class="content-container">
                 <h2>Create a new item</h2>
                 <%- include("partials/errors.ejs") %>
-                <form action="/items/new" method="POST">
+                <form class="input-form" action="/items/new" method="POST">
                     <div class="form-item">
                         <label for="itemName">Item Name: </label>
                         <input type="text" name="itemName" id="itemName" placeholder="Enter item name" maxlength="50" required>

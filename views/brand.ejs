@@ -11,6 +11,9 @@
             </div>
             <div class="content-container">
                 <h2><%= brand[0].brand_name %></h2>
+                <% if (error !== null) { %>
+                    <div class="errors-list"><%= error %></div>
+                <% } %> 
                 <% if (brand[0].item_id !== null) { %>
                     <ul>
                         <% brand.forEach(item => { %>
@@ -22,7 +25,7 @@
                 <% } %>
                 <br>
                 <div><a href="/brands/<%= brand[0].id %>/update">Update Brand</a></div>
-                <div><a href="">Delete Brand</a></div>
+                <div><a href="/brands/<%= brand[0].id %>/delete">Delete Brand</a></div>
                 <div><a href="/brands">Back to Brand List</a></div>
             </div>
         </div>

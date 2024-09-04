@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="/stylesheets/styles.css">
+        <title>Delete Category</title>
+    </head>
+    <body>
+        <div class="container">
+            <div class="nav-container">
+                <%- include('navbar', { links: links }) %>
+            </div>
+            <div class="content-container">
+                <h2>Are you sure you want to delete <%= category[0].category_name %>?</h2>
+                <form action="/categories/<%= category[0].id %>/delete" method="POST">
+                    <button type="submit">Delete Category</button>
+                </form>
+            </div>
+        </div>
+    </body>
+</html>
