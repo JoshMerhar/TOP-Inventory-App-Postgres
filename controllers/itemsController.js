@@ -47,7 +47,7 @@ const newItemPost = [
             category_id: itemCategory,
             price: itemPrice,
             num_in_stock: itemStockAmt,
-            img_url: itemImageURL
+            img_url: itemImageURL ? itemImageURL : 'https://i.redd.it/n590sidq9mja1.jpg'
         }
         db.addItem(newItem);
         res.redirect("/items");
@@ -55,6 +55,9 @@ const newItemPost = [
 ]
 
 async function getItem(req, res) {
+    if (isNaN(req.params.id)) {
+        return res.render('error');
+    }
     const item = await db.getSingleItem(req.params.id);
     res.render('item', { links: helpers.links, item: item });
 }
@@ -63,7 +66,7 @@ async function itemUpdateGet(req, res) {
     const brands = await db.showBrands();
     const categories = await db.showCategories();
     const item = await db.getSingleItem(req.params.id);
-    res.render('updateItem', { links: helpers.links, brands: brands, categories: categories, item: item });
+    res.render('itemUpdate', { links: helpers.links, brands: brands, categories: categories, item: item });
 }
 
 const itemUpdatePost = [

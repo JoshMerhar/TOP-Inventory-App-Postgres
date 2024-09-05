@@ -39,6 +39,9 @@ const newCategoryPost = [
 ];
 
 async function getCategory(req, res) {
+    if (isNaN(req.params.id)) {
+        return res.render('error');
+    }
     const category = await db.getSingleCategory(req.params.id);
     res.render('category', { links: helpers.links, category: category, error: null });
 }

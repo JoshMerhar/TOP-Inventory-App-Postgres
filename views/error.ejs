@@ -1,8 +1,5 @@
-<% if (locals.errors) {%>
-    <ul>
-      <% errors.forEach(function(error) { %>
-        <li><%= error.msg %></li>
-      <% }); %>
-    </ul>
+<h2>Error!</h2>
+<% if (locals.error) {%>
+    <p><%= error.message %></p>
 <% } %>
-<a href="/">Go back</a>
+<div><a href="/">Go back</a></div>

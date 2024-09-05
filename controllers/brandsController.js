@@ -33,6 +33,9 @@ const newBrandPost = [
 ];
  
 async function getBrand(req, res) {
+    if (isNaN(req.params.id)) {
+        return res.render('error');
+    }
     const brand = await db.getSingleBrand(req.params.id);
     res.render('brand', { links: helpers.links, brand: brand, error: null });
 }

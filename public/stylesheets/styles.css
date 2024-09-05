@@ -11,7 +11,7 @@ body {
 
 .container {
     display: grid;
-    grid-template-columns: 1fr 7fr;
+    grid-template-columns: 2fr 10fr;
     height: 100%;
 }
 
@@ -37,9 +37,13 @@ body {
 .input-form {
     display: flex;
     flex-direction: column;
-    width: 30%;
+    width: 50%;
     margin: auto;
     gap: 10px;
+    padding: .5rem;
+    background-color: whitesmoke;
+    border: 1rem, solid, turquoise;
+    border-radius: 8px;
 }
 
 .form-item {
@@ -57,4 +61,8 @@ body {
 
 .errors-list {
     color: red;
+}
+
+.item-photo {
+    width: 40%;
 }

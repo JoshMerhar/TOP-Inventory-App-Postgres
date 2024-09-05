@@ -1,6 +1,9 @@
 <nav class="nav-bar">
     <ul>
       <% for (let i = 0; i < links.length; i++) { %>
+        <% if (i === 4) { %> 
+          <br>  
+        <% } %>
         <li>
           <a href="<%= links[i].href %>"><span> <%= links[i].text %> </span></a>
         </li>
