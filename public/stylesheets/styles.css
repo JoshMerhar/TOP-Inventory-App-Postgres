@@ -9,6 +9,17 @@ body {
     height: 100vh;
 }
 
+h1,
+p,
+.empty-list,
+.operation-links {
+    text-align: center;
+}
+
+ul {
+    font-size: 18px;
+}
+
 .container {
     display: grid;
     grid-template-columns: 2fr 10fr;
@@ -27,11 +38,18 @@ body {
 
 .content-container {
     background-color: blanchedalmond;
+    margin: 0 auto;
+    width: 100%;
 }
 
 .nav-container,
 .content-container {
     padding: 1rem;
+}
+
+.list-container {
+    display: flex;
+    justify-content: center;
 }
 
 .index-list {
@@ -68,13 +86,13 @@ body {
     width: 300px;
 }
 
-.cancel-update {
+.cancel-update,
+.cancel-delete {
     margin: auto;
 }
 
 .errors-list {
     color: red;
-    text-align: center;
     padding-bottom: 10px;
 }
 
@@ -86,4 +104,8 @@ body {
 
 .item-photo {
     width: 40%;
+}
+
+.new-link {
+    text-align: center;
 }

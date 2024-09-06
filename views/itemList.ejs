@@ -10,17 +10,19 @@
                 <%- include('navbar', { links: links }) %>
             </div>
             <div class="content-container">
-                <h1>All items</h1>
+                <h1>All Items</h1>
                 <% if (locals.items) { %>
-                    <ul>
-                        <% items.forEach(item => { %>
-                            <li><a href="/items/<%= item.item_id %>"><%= item.item_name %></a></li>
-                        <% }); %>
-                    </ul>
+                    <div class="list-container">
+                        <ul>
+                            <% items.forEach(item => { %>
+                                <li><a href="/items/<%= item.item_id %>"><%= item.brand_name %> <%= item.item_name %></a></li>
+                            <% }); %>
+                        </ul>
+                    </div>
                 <% } else { %> 
                     <div>No items to show</div>
                 <% } %>
-                <div><a href="/items/new">Create New Item</a></div>
+                <div class="new-link"><a href="/items/new">Create New Item</a></div>
             </div>
         </div>
     </body>

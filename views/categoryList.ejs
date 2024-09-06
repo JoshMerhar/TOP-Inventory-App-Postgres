@@ -10,15 +10,17 @@
                 <%- include('navbar', { links: links }) %>
             </div>
             <div class="content-container">
-                <h1>All categories</h1>
-                <ul>
-                    <% if (locals.categories) { %>
-                        <% categories.forEach(category => { %>
-                            <li><a href="/categories/<%= category.id %>"><%= category.category_name %></a></li>
-                        <% }); %>
-                    <% } %>
-                </ul>
-                <div><a href="/categories/new">Create New Category</a></div>
+                <h1>All Categories</h1>
+                <div class="list-container">
+                    <ul>
+                        <% if (locals.categories) { %>
+                            <% categories.forEach(category => { %>
+                                <li><a href="/categories/<%= category.id %>"><%= category.category_name %></a></li>
+                            <% }); %>
+                        <% } %>
+                    </ul>
+                </div>
+                <div class="new-link"><a href="/categories/new">Create New Category</a></div>
             </div>
         </div>
     </body>

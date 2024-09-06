@@ -10,15 +10,14 @@
                 <%- include('navbar', { links: links }) %>
             </div>
             <div class="content-container">
-                <h2>Are you sure you want to delete the category <%= category[0].category_name %>?</h2>
-                <% if (error !== null) { %>
-                    <div class="errors-list"><%= error %></div>
-                <% } %>
+                <h1>Are you sure you want to delete the category <%= category[0].category_name %>?</h1>
+                <%- include("partials/errors.ejs") %>
                 <form class="delete-form" action="/categories/<%= category[0].id %>/delete" method="POST">
                     <label for="password">Password: 
                         <input type="password" name="password" id="password" placeholder="Enter Password" required>
                     </label>
                     <button class="submit-button" type="submit">Delete Category</button>
+                    <div class="cancel-delete"><a href="/categories/<%= category[0].id %>">Cancel</a></div>
                 </form>
             </div>
         </div>

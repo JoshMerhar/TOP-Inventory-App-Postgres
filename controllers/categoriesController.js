@@ -43,7 +43,7 @@ async function getCategory(req, res) {
         return res.render('error');
     }
     const category = await db.getSingleCategory(req.params.id);
-    res.render('category', { links: helpers.links, category: category, error: null });
+    res.render('category', { links: helpers.links, category: category });
 }
 
 async function categoryUpdateGet(req, res) {
@@ -54,6 +54,7 @@ async function categoryUpdateGet(req, res) {
 const categoryUpdatePost = [
     validateCategory,
     async (req, res) => {
+        const validPassword = helpers.checkPassword(req.body.password);
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
           const category = await db.getCategoryInfo(req.params.id);
@@ -62,6 +63,14 @@ const categoryUpdatePost = [
             category: category,
             errors: errors.array(),
           });
+        } else if (!validPassword) {
+            const error = { msg: "Invalid password - NOT UPDATED" };
+            const category = await db.getCategoryInfo(req.params.id);
+            return res.status(400).render('categoryUpdate', {
+                links: helpers.links,
+                category: category,
+                errors: [error],
+            });
         }
         const { categoryName, categoryDescription } = req.body;
         db.updateCategory(categoryName, categoryDescription, req.params.id);
@@ -71,7 +80,7 @@ const categoryUpdatePost = [
 
 async function categoryDeleteGet(req, res) {
     const category = await db.getCategoryInfo(req.params.id);
-    res.render('categoryDelete', { links: helpers.links, category: category, error: null });
+    res.render('categoryDelete', { links: helpers.links, category: category });
 }
 
 async function categoryDeletePost(req, res) {
@@ -81,11 +90,11 @@ async function categoryDeletePost(req, res) {
         await db.deleteCategory(req.params.id);
         res.redirect('/categories');
     } else if (!validPassword) {
-        const error = "Invalid password - NOT DELETED";
-        res.render('categoryDelete', { links: helpers.links, category: category, error: error });
+        const error = { msg: "Invalid password - NOT DELETED" };
+        res.render('categoryDelete', { links: helpers.links, category: category, errors: [error] });
     } else if (category[0].item_id !== null) {
-        const error = "Category must be empty - NOT DELETED";
-        res.render('category', { links: helpers.links, category: category, error: error });
+        const error = { msg: "Category must be empty - NOT DELETED" };
+        res.render('category', { links: helpers.links, category: category, errors: [error] });
     }
 }
 

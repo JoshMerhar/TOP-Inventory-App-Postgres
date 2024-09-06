@@ -45,17 +45,25 @@ async function brandUpdateGet(req, res) {
     res.render('brandUpdate', { links: helpers.links, brand: brand });
 }
 
-// Add password protection to updating data - CONTINUE HERE
 const brandUpdatePost = [
     validateBrand,
     async (req, res) => {
+        const validPassword = helpers.checkPassword(req.body.password);
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
-            const brand = await db.getBrandName(req.params.id);
+            const brand = await db.getBrandInfo(req.params.id);
             return res.status(400).render('brandUpdate', {
                 links: helpers.links,
                 brand: brand,
                 errors: errors.array(),
+            });
+        } else if (!validPassword) {
+            const error = { msg: "Invalid password - NOT UPDATED" };
+            const brand = await db.getBrandInfo(req.params.id);
+            return res.status(400).render('brandUpdate', {
+                links: helpers.links,
+                brand: brand,
+                errors: [error],
             });
         }
         const { brandName } = req.body;
@@ -66,7 +74,7 @@ const brandUpdatePost = [
 
 async function brandDeleteGet(req, res) {
     const brand = await db.getBrandInfo(req.params.id);
-    res.render('brandDelete', { links: helpers.links, brand: brand, error: null });
+    res.render('brandDelete', { links: helpers.links, brand: brand });
 }
 
 async function brandDeletePost(req, res) {
@@ -76,8 +84,8 @@ async function brandDeletePost(req, res) {
         await db.deleteBrand(req.params.id);
         res.redirect('/brands');
     } else if (!validPassword) {
-        const error = "Invalid password - NOT DELETED";
-        res.render('brandDelete', { links: helpers.links, brand: brand, error: error });
+        const error = { msg: "Invalid password - NOT DELETED" };
+        res.render('brandDelete', { links: helpers.links, brand: brand, errors: [error] });
     } else if (brand[0].item_id !== null) {
         const error = "Brand must be empty - NOT DELETED";
         res.render('brand', { links: helpers.links, brand: brand, error: error });

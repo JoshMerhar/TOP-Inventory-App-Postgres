@@ -72,17 +72,30 @@ async function itemUpdateGet(req, res) {
 const itemUpdatePost = [
     validateItem,
     async (req, res) => {
+        const validPassword = helpers.checkPassword(req.body.password);
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
             const brands = await db.showBrands();
             const categories = await db.showCategories();
-            const item = db.getSingleItem(req.params.id);
+            const item = await db.getSingleItem(req.params.id);
             return res.status(400).render('itemUpdate', { 
                 links: helpers.links, 
                 brands: brands, 
                 categories: categories,
                 item: item,
                 errors: errors.array()
+            });
+        } else if (!validPassword) {
+            const error = { msg: "Invalid password - NOT UPDATED" };
+            const brands = await db.showBrands();
+            const categories = await db.showCategories();
+            const item = await db.getSingleItem(req.params.id);
+            return res.status(400).render('itemUpdate', { 
+                links: helpers.links, 
+                brands: brands, 
+                categories: categories,
+                item: item,
+                errors: [error]
             });
         }
         const { itemName, itemBrand, itemDescription, itemCategory, itemPrice, itemStockAmt, itemImageURL } = req.body;
@@ -96,7 +109,6 @@ async function itemDeleteGet(req, res) {
     res.render('itemDelete', { links: helpers.links, item: item, error: null });
 }
 
-// ADD PASSWORD PROTECTION HERE NEXT
 async function itemDeletePost(req, res) {
     const validPassword = helpers.checkPassword(req.body.password);
     const item = await db.getSingleItem(req.params.id);

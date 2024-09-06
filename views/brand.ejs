@@ -11,22 +11,24 @@
             </div>
             <div class="content-container">
                 <h1><%= brand[0].brand_name %></h1>
-                <% if (error !== null) { %>
-                    <div class="errors-list"><%= error %></div>
-                <% } %> 
+                <%- include("partials/errors.ejs") %> 
                 <% if (brand[0].item_id !== null) { %>
-                    <ul>
-                        <% brand.forEach(item => { %>
-                            <li><a href="/items/<%= item.item_id %>"><%= item.item_name %></a></li>
-                        <% }); %>
-                    </ul>
+                    <div class="list-container">
+                        <ul>
+                            <% brand.forEach(item => { %>
+                                <li><a href="/items/<%= item.item_id %>"><%= item.item_name %></a></li>
+                            <% }); %>
+                        </ul>
+                    </div>
                 <% } else { %>
-                    <div>No items to show</div>
+                    <div class="empty-list">No items to show</div>
                 <% } %>
                 <br>
-                <div><a href="/brands/<%= brand[0].id %>/update">Update Brand</a></div>
-                <div><a href="/brands/<%= brand[0].id %>/delete">Delete Brand</a></div>
-                <div><a href="/brands">Back to Brand List</a></div>
+                <div class="operation-links">
+                    <div><a href="/brands/<%= brand[0].id %>/update">Update Brand</a></div>
+                    <div><a href="/brands/<%= brand[0].id %>/delete">Delete Brand</a></div>
+                    <div><a href="/brands">Back to Brand List</a></div>
+                </div>
             </div>
         </div>
     </body>

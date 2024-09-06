@@ -17,7 +17,11 @@
                         <label for="brandName">Brand Name: </label>
                         <input type="text" name="brandName" id="brandName" value="<%= brand[0].brand_name %>" maxlength="50" required>
                     </div>
-                    <button type="submit" class="submit-button">Submit</button>
+                    <div class="form-item">
+                        <label for="password">Password: </label>
+                        <input type="password" name="password" id="password" placeholder="Enter Password" required>
+                    </div>
+                    <button type="submit" class="submit-button">Update</button>
                     <div class="cancel-update"><a href="/brands/<%= brand[0].id %>">Cancel</a></div>
                 </form>
             </div>

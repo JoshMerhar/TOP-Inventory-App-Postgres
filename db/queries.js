@@ -59,7 +59,8 @@ async function showCategories() {
 async function getSingleCategory(id) {
     const { rows } = await pool.query(`SELECT * FROM categories
         LEFT JOIN items ON categories.id = items.category_id
-        WHERE id = $1`, [id]);
+        LEFT JOIN brands ON items.brand_id = brands.id
+        WHERE categories.id = $1`, [id]);
     return rows;
 }
 
@@ -87,7 +88,8 @@ async function deleteCategory(id) {
 
 // Item queries
 async function showItems() {
-    const { rows } = await pool.query("SELECT * FROM items");
+    const { rows } = await pool.query(`SELECT * FROM items
+        JOIN brands ON items.brand_id = brands.id`);
     return rows;
 }
 

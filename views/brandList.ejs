@@ -10,15 +10,17 @@
                 <%- include('navbar', { links: links }) %>
             </div>
             <div class="content-container">
-                <h1>All brands</h1>
-                <ul>
-                    <% if (locals.brands) { %>
-                        <% brands.forEach(brand => { %>
-                            <li><a href="/brands/<%= brand.id %>"><%= brand.brand_name %></a></li>
-                        <% }); %>
-                    <% } %>
-                </ul>
-                <div><a href="/brands/new">Create New Brand</a></div>
+                <h1>All Brands</h1>
+                <div class="list-container">
+                    <ul>
+                        <% if (locals.brands) { %>
+                            <% brands.forEach(brand => { %>
+                                <li><a href="/brands/<%= brand.id %>"><%= brand.brand_name %></a></li>
+                            <% }); %>
+                        <% } %>
+                    </ul>
+                </div>
+                <div class="new-link"><a href="/brands/new">Create New Brand</a></div>
             </div>
         </div>
     </body>

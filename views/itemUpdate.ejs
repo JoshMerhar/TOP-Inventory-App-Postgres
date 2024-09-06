@@ -55,6 +55,10 @@
                         <label for="itemImageURL">Image URL: </label>
                         <input type="text" name="itemImageURL" id="itemImageURL" value="<%= item[0].img_url %>" placeholder="Image URL"> 
                     </div>
+                    <div class="form-item">
+                        <label for="password">Password: </label>
+                        <input type="password" name="password" id="password" placeholder="Enter Password" required>
+                    </div>
                     <button type="submit" class="submit-button">Submit</button>
                     <div class="cancel-update"><a href="/items/<%= item[0].item_id %>">Cancel</a></div>
                 </form>

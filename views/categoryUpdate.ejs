@@ -21,6 +21,10 @@
                         <label for="categoryDescription">Category Description: </label>
                         <input type="text" name="categoryDescription" id="categoryDescription" value="<%= category[0].category_description %>" maxlength="200" required>
                     </div>
+                    <div class="form-item">
+                        <label for="password">Password: </label>
+                        <input type="password" name="password" id="password" placeholder="Enter Password" required>
+                    </div>
                     <button type="submit" class="submit-button">Submit</button>
                     <div class="cancel-update"><a href="/categories/<%= category[0].id %>">Cancel</a></div>
                 </form>
