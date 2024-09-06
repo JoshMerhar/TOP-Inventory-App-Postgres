@@ -11,8 +11,14 @@
             </div>
             <div class="content-container">
                 <h2>Are you sure you want to delete <%= brand[0].brand_name %>?</h2>
-                <form action="/brands/<%= brand[0].id %>/delete" method="POST">
-                    <button type="submit">Delete Brand</button>
+                <% if (error !== null) { %>
+                    <div class="errors-list"><%= error %></div>
+                <% } %>
+                <form class="delete-form" action="/brands/<%= brand[0].id %>/delete" method="POST">
+                    <label for="password">Password: 
+                        <input type="password" name="password" id="password" placeholder="Enter Password" required>
+                    </label>
+                    <button class="submit-button" type="submit">Delete Brand</button>
                 </form>
             </div>
         </div>

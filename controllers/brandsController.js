@@ -45,6 +45,7 @@ async function brandUpdateGet(req, res) {
     res.render('brandUpdate', { links: helpers.links, brand: brand });
 }
 
+// Add password protection to updating data - CONTINUE HERE
 const brandUpdatePost = [
     validateBrand,
     async (req, res) => {
@@ -65,18 +66,22 @@ const brandUpdatePost = [
 
 async function brandDeleteGet(req, res) {
     const brand = await db.getBrandInfo(req.params.id);
-    res.render('brandDelete', { links: helpers.links, brand: brand });
+    res.render('brandDelete', { links: helpers.links, brand: brand, error: null });
 }
 
 async function brandDeletePost(req, res) {
+    const validPassword = helpers.checkPassword(req.body.password);
     const brand = await db.getSingleBrand(req.params.id);
-    if (brand[0].item_id === null) {
+    if (brand[0].item_id === null && validPassword) {
         await db.deleteBrand(req.params.id);
         res.redirect('/brands');
-    } else {
+    } else if (!validPassword) {
+        const error = "Invalid password - NOT DELETED";
+        res.render('brandDelete', { links: helpers.links, brand: brand, error: error });
+    } else if (brand[0].item_id !== null) {
         const error = "Brand must be empty - NOT DELETED";
         res.render('brand', { links: helpers.links, brand: brand, error: error });
-    }
+    } 
 }
 
 module.exports = {

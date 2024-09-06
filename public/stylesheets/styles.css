@@ -34,6 +34,10 @@ body {
     padding: 1rem;
 }
 
+.index-list {
+    font-size: 24px;
+}
+
 .input-form {
     display: flex;
     flex-direction: column;
@@ -55,12 +59,29 @@ body {
     margin: auto;
 }
 
+.update-form,
+.delete-form {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    gap: 10px;
+    width: 300px;
+}
+
 .cancel-update {
     margin: auto;
 }
 
 .errors-list {
     color: red;
+    text-align: center;
+    padding-bottom: 10px;
+}
+
+.item-display {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .item-photo {

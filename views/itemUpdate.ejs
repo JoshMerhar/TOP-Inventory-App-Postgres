@@ -10,7 +10,7 @@
                 <%- include('navbar', { links: links }) %>
             </div>
             <div class="content-container">
-                <h2>Update Item</h2>
+                <h1>Update Item</h1>
                 <%- include("partials/errors.ejs") %>
                 <form class="input-form" action="/items/<%= item[0].item_id %>/update" method="POST">
                     <div class="form-item">

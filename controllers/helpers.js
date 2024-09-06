@@ -8,6 +8,11 @@ const links = [
     { href: '/items/new', text: 'Create Item' }
 ];
 
+function checkPassword(password) {
+    if (password === process.env.PASSWORD) return true;
+}
+
 module.exports = {
     links,
+    checkPassword
 }

@@ -71,15 +71,19 @@ const categoryUpdatePost = [
 
 async function categoryDeleteGet(req, res) {
     const category = await db.getCategoryInfo(req.params.id);
-    res.render('categoryDelete', { links: helpers.links, category: category });
+    res.render('categoryDelete', { links: helpers.links, category: category, error: null });
 }
 
 async function categoryDeletePost(req, res) {
+    const validPassword = helpers.checkPassword(req.body.password);
     const category = await db.getSingleCategory(req.params.id);
-    if (category[0].item_id === null) {
+    if (category[0].item_id === null && validPassword) {
         await db.deleteCategory(req.params.id);
         res.redirect('/categories');
-    } else {
+    } else if (!validPassword) {
+        const error = "Invalid password - NOT DELETED";
+        res.render('categoryDelete', { links: helpers.links, category: category, error: error });
+    } else if (category[0].item_id !== null) {
         const error = "Category must be empty - NOT DELETED";
         res.render('category', { links: helpers.links, category: category, error: error });
     }

@@ -93,12 +93,20 @@ const itemUpdatePost = [
 
 async function itemDeleteGet(req, res) {
     const item = await db.getSingleItem(req.params.id);
-    res.render('itemDelete', { links: helpers.links, item: item });
+    res.render('itemDelete', { links: helpers.links, item: item, error: null });
 }
 
+// ADD PASSWORD PROTECTION HERE NEXT
 async function itemDeletePost(req, res) {
-    await db.deleteItem(req.params.id);
-    res.redirect('/items');
+    const validPassword = helpers.checkPassword(req.body.password);
+    const item = await db.getSingleItem(req.params.id);
+    if (validPassword) {
+        await db.deleteItem(req.params.id);
+        res.redirect('/items');
+    } else {
+        const error = "Invalid password - NOT DELETED";
+        res.render('itemDelete', { links: helpers.links, item: item, error: error });
+    }
 }
 
 module.exports = {
