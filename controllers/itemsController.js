@@ -115,9 +115,9 @@ async function itemDeletePost(req, res) {
     if (validPassword) {
         await db.deleteItem(req.params.id);
         res.redirect('/items');
-    } else {
-        const error = "Invalid password - NOT DELETED";
-        res.render('itemDelete', { links: helpers.links, item: item, error: error });
+    } else if (!validPassword) {
+        const error = { msg: "Invalid password - NOT DELETED" };
+        res.render('itemDelete', { links: helpers.links, item: item, errors: [error] });
     }
 }
 
