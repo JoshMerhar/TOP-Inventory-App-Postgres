@@ -25,11 +25,19 @@
                     <div class="empty-list">No items to show</div>
                 <% } %>
                 <br>
-                <div class="operation-links">
-                    <div><a href="/categories/<%= category[0].id %>/update">Update Category</a></div>
-                    <div><a href="/categories/<%= category[0].id %>/delete">Delete Category</a></div>
-                    <div><a href="/categories">Back to Category List</a></div>
-                </div>
+                <% if (category[0].item_id !== null) { %>
+                    <div class="operation-links">
+                        <div><a href="/categories/<%= category[0].category_id %>/update">Update Category</a></div>
+                        <div><a href="/categories/<%= category[0].category_id %>/delete">Delete Category</a></div>
+                        <div><a href="/categories">Back to Category List</a></div>
+                    </div>
+                <% } else { %>
+                    <div class="operation-links">
+                        <div><a href="/categories/<%= category[0].id %>/update">Update Category</a></div>
+                        <div><a href="/categories/<%= category[0].id %>/delete">Delete Category</a></div>
+                        <div><a href="/categories">Back to Category List</a></div>
+                    </div>
+                <% } %>
             </div>
         </div>
     </body>

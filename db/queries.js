@@ -55,12 +55,19 @@ async function showCategories() {
     const { rows } = await pool.query("SELECT * FROM categories");
     return rows;
 }
-
+// Not properly getting update and delete forms from empty categories - fix this
 async function getSingleCategory(id) {
     const { rows } = await pool.query(`SELECT * FROM categories
         LEFT JOIN items ON categories.id = items.category_id
-        LEFT JOIN brands ON items.brand_id = brands.id
         WHERE categories.id = $1`, [id]);
+    return rows;
+}
+
+async function getCategoryItems(id) {
+    const { rows } = await pool.query(`SELECT * FROM items
+        JOIN categories ON items.category_id = categories.id
+        JOIN brands ON items.brand_id = brands.id
+        WHERE items.category_id = $1`, [id]);
     return rows;
 }
 
@@ -130,6 +137,7 @@ module.exports = {
     deleteBrand,
     showCategories,
     getSingleCategory,
+    getCategoryItems,
     addCategory,
     getCategoryInfo,
     updateCategory,

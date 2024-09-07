@@ -43,6 +43,10 @@ async function getCategory(req, res) {
         return res.render('error');
     }
     const category = await db.getSingleCategory(req.params.id);
+    if (category[0].item_id !== null) {
+        const categoryItems = await db.getCategoryItems(req.params.id);
+        return res.render('category', { links: helpers.links, category: categoryItems });
+    }
     res.render('category', { links: helpers.links, category: category });
 }
 
