@@ -4,8 +4,7 @@
   "main": "index.js",
   "environment": "production",
   "scripts": {
-    "start": "node --watch app.js",
-    "populate": "node ./db/populatedb.js",
+    "start": "node app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
