@@ -18,7 +18,7 @@ async function countItems() {
 
 // Brand queries
 async function showBrands() {
-    const { rows } = await pool.query("SELECT * FROM brands");
+    const { rows } = await pool.query("SELECT * FROM brands ORDER BY brand_name");
     return rows;
 }
 
@@ -52,7 +52,7 @@ async function deleteBrand(id) {
 
 // Category queries
 async function showCategories() {
-    const { rows } = await pool.query("SELECT * FROM categories");
+    const { rows } = await pool.query("SELECT * FROM categories ORDER BY category_name");
     return rows;
 }
 
@@ -96,7 +96,8 @@ async function deleteCategory(id) {
 // Item queries
 async function showItems() {
     const { rows } = await pool.query(`SELECT * FROM items
-        JOIN brands ON items.brand_id = brands.id`);
+        JOIN brands ON items.brand_id = brands.id
+        ORDER BY brand_name`);
     return rows;
 }
 
